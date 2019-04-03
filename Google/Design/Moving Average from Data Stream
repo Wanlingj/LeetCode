@@ -1,0 +1,23 @@
+class MovingAverage {
+public:
+    /** Initialize your data structure here. */
+    deque<double> window;
+    int sz;
+    double sum;
+    MovingAverage(int size) {
+        sz=size;
+    }
+    
+    double next(int val) {
+        int n=window.size();
+       
+        if(n==sz){
+            sum-=window.front();
+            window.pop_front();
+           
+        }
+        window.push_back(val);
+        sum+=val;
+       return sum/(window.size()<sz? window.size():sz);
+    }
+};
