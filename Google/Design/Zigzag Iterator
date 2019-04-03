@@ -1,0 +1,42 @@
+class ZigzagIterator {
+    vector<int> v;
+    int index=-1;
+    int n;
+public:
+    ZigzagIterator(vector<int>& v1, vector<int>& v2) {
+        int n1= (v1).size();
+        int n2= (v2).size();
+        int i=0;
+        while(i<n1 && i<n2){
+            v.push_back(v1[i]);
+            v.push_back(v2[i]);
+            i++;
+        }
+        while(i<n1){
+             v.push_back(v1[i]);
+             i++;
+        }
+        while(i<n2){
+             v.push_back(v2[i]);
+             i++;
+        }
+        n=v.size();
+    }
+
+    int next() {
+        ++index;
+        return v[index];
+      
+    }
+
+    bool hasNext() {
+
+        return index+1<n?true:false;
+    }
+};
+
+/**
+ * Your ZigzagIterator object will be instantiated and called as such:
+ * ZigzagIterator i(v1, v2);
+ * while (i.hasNext()) cout << i.next();
+ */
