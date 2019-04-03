@@ -1,0 +1,28 @@
+ int wordsTyping(vector<string>& sentence, int rows, int cols) {
+        int r=0,c=0,s=0;
+        int sz=sentence.size();
+        long sum=0;
+        unordered_map<int, int> m;
+        while(r<rows){
+            int start=sum%sz;
+                
+            if(m[start]==0){
+                int count=0;
+                s=start;
+                c=0;
+                while((c+sentence[s].length())<=cols){
+                    c+=sentence[s].length()+1;
+                    count++;
+                    s=(s+1)%sz;
+             
+                }
+                sum+=count;
+                m[start]=count;
+            }
+            else{
+                sum+=m[start];
+            }
+            r++;
+        }
+        return sum/sz;
+}
