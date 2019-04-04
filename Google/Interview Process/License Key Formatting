@@ -1,0 +1,32 @@
+string licenseKeyFormatting(string S, int K) {
+        int count=0,i=0;
+       
+        reverse(S.begin(),S.end());
+        while(i<S.length()){
+            if(S[i]!='-'){
+                if(islower(S[i])){
+                    S[i]=toupper(S[i]);
+                }
+                count++;
+                if(count>K){
+                    S.insert(i,"-");
+                    
+                    count=0;
+                }
+            }
+            else{
+               
+                    if(count<=K){
+                        S.erase(S.begin()+i);
+                        i--;
+                    }
+                    else
+                        count=0;
+               
+               
+            }
+            i++;
+        }
+        reverse(S.begin(),S.end());
+        return  S;
+    }
