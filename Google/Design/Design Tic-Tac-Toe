@@ -1,0 +1,135 @@
+class TicTacToe {
+    vector<int> player1_row,player1_col;
+    vector<int> player1_row_sorted,player1_col_sorted;
+    vector<int> player2_row,player2_col;
+    vector<int> player2_row_sorted,player2_col_sorted;
+    int sz1=0,sz2=0;
+    int boardsz;
+    
+public:
+    /** Initialize your data structure here. */
+    TicTacToe(int n) {
+        boardsz=n;
+    }
+    
+    /** Player {player} makes a move at ({row}, {col}).
+        @param row The row of the board.
+        @param col The column of the board.
+        @param player The player, can be either 1 or 2.
+        @return The current winning condition, can be either:
+                0: No one wins.
+                1: Player 1 wins.
+                2: Player 2 wins. */
+    int move(int row, int col, int player) {
+        if(player==1){
+             player1_row.push_back(row);
+             player1_col.push_back(col);
+                                            player1_row_sorted.insert(lower_bound(player1_row_sorted.begin(),player1_row_sorted.end(),row),row);
+             player1_col_sorted.insert(lower_bound(player1_col_sorted.begin(),player1_col_sorted.end(),col),col);
+           
+             ++sz1;
+        }
+        else{
+            player2_row.push_back(row);
+            player2_col.push_back(col);
+             player2_row_sorted.insert(lower_bound(player2_row_sorted.begin(),player2_row_sorted.end(),row),row);
+             player2_col_sorted.insert(lower_bound(player2_col_sorted.begin(),player2_col_sorted.end(),col),col);
+            ++sz2;
+        }
+        // if(sz1<boardsz&&sz2<boardsz){
+        //     return 0;
+        // }
+        if(sz1>=boardsz){
+            //horizontal and vertical
+            int count=1;
+            for(int i=0;i<sz1-1;i++){
+                if(player1_row_sorted[i]==player1_row_sorted[i+1]){
+                    count++;
+                    if(count>=boardsz)
+                        return 1;
+                }
+                else
+                    count=1;
+            }
+            
+            count=1;
+            for(int i=0;i<sz1-1;i++){
+                if(player1_col_sorted[i]==player1_col_sorted[i+1]){
+                    count++;
+                    if(count>=boardsz)
+                         return 1;
+                }
+                 else
+                    count=1;
+            }
+           
+            //diagonal
+            count=0;
+            for(int i=0;i<sz1;i++){
+                if(player1_row[i]+player1_col[i]==(boardsz-1))
+                    ++count;
+            }
+            if(count>=boardsz)
+                return 1;
+             count=0;
+            for(int i=0;i<sz1;i++){
+                if(player1_row[i]==player1_col[i])
+                    ++count;
+            }
+            if(count>=boardsz)
+                return 1;
+            
+        }
+        
+          if(sz2>=boardsz){
+            //horizontal and vertical
+            int count=1;
+            for(int i=0;i<sz2-1;i++){
+                if(player2_row_sorted[i]==player2_row_sorted[i+1]){
+                    count++;
+                if(count>=boardsz)
+                return 2;
+                }
+                 else
+                    count=1;
+            }
+            
+            count=1;
+            for(int i=0;i<sz2-1;i++){
+                if(player2_col_sorted[i]==player2_col_sorted[i+1]){
+                    count++; 
+                    if(count>=boardsz)
+                    return 2;
+                }
+                 else
+                    count=1;
+            }
+           
+            //diagonal
+            count=0;
+            for(int i=0;i<sz2;i++){
+                if(player2_row[i]+player2_col[i]==(boardsz-1))
+                    ++count;
+            }
+            if(count>=boardsz)
+                return 2;
+             count=0;
+            for(int i=0;i<sz2;i++){
+                if(player2_row[i]==player2_col[i])
+                    ++count;
+            }
+            if(count>=boardsz)
+                return 2;
+            
+        }
+        return 0;
+        
+        
+    }
+};
+
+/**
+ * Your TicTacToe object will be instantiated and called as such:
+ * TicTacToe* obj = new TicTacToe(n);
+ * int param_1 = obj->move(row,col,player);
+ */
