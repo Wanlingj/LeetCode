@@ -1,0 +1,21 @@
+ string nextClosestTime(string time) {
+          vector<char> nums = {time[0], time[1], time[3], time[4]};
+        set<char> nums_ordered(nums.begin(), nums.end());
+        
+        for (int i = 3; i >= 0; --i) {
+            auto iter = nums_ordered.upper_bound(nums[i]);
+            if (iter != nums_ordered.end()) {
+                nums[i] = *iter;
+                if (validTime(nums)) break;
+            }
+            nums[i] = *nums_ordered.begin();
+        }
+        string result(nums.begin(), nums.end());
+        result.insert(2, 1, ':');
+        return result;
+    }
+    
+    bool validTime(vector<char> &nums) {
+        int hour = (nums[0]-'0')*10+nums[1]-'0', min = (nums[2]-'0')*10+nums[3]-'0';
+        return hour >= 0 && hour < 24 && min >= 0 && min <= 59;
+    }           
