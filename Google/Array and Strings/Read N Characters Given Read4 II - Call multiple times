@@ -1,0 +1,34 @@
+// Forward declaration of the read4 API.
+int read4(char *buf);
+
+class Solution {
+public:
+    /**
+     * @param buf Destination buffer
+     * @param n   Number of characters to read
+     * @return    The number of actual characters read
+     */
+    
+   
+	private: int bufferIndex = 0;
+	private: int bufferCount = 0;
+    private: char *buffer = new char[4];
+
+	public: int read(char* buf, int n) {
+        
+		int i = 0;
+		while (i < n) {
+			while (bufferIndex < bufferCount && i < n) {
+				buf[i++] = buffer[bufferIndex++];
+			}
+			if (i < n) {
+				bufferCount = read4(buffer);
+				bufferIndex = 0;
+				if (bufferCount == 0) return i;
+			}
+		}
+		return i;
+	}
+        
+    
+};
