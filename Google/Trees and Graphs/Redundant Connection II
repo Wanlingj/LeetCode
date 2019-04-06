@@ -1,0 +1,43 @@
+class Solution {
+ public:
+    vector<int> findRedundantDirectedConnection(vector<vector<int>>& edges) {
+        // 3 cases
+        // 1. A node has two parents
+        // 2. there's loop, and a node in the loop has two parents
+        // 3. There's a loop, no node has two parents
+        int n = edges.size();
+        vector<int> parent(n+1, 0), candA, candB;
+        // step 1, check whether there is a node with two parents
+        for (auto &edge:edges) {
+            if (parent[edge[1]] == 0)
+                parent[edge[1]] = edge[0]; 
+            else {
+                candA = {parent[edge[1]], edge[1]};
+                candB = edge;//occurs last
+                edge[1] = 0;
+            }
+        } 
+        // step 2, union find
+        // if before adding candB, it is valid tree, then return candB
+        // if before adding candB, there exist a loop, return edge or candA
+        for (int i = 1; i <= n; i++) parent[i] = i;
+        for (auto &edge:edges) {
+            if (edge[1] == 0) continue;
+            int u = edge[0], v = edge[1], pu = root(parent, u);
+            // Now every node only has 1 parent, so root of v is implicitly v
+            if (pu == v) {
+                if (candA.empty()) return edge; //case 3: only a loop
+                return candA;// case 2: a node in the loop has two parents
+            }
+            parent[v] = pu;
+        }
+        return candB;// case 1: a node has two parents, no loop
+    }
+private:
+    int root(vector<int>& parent, int k) {
+        if (parent[k] != k) 
+            parent[k] = root(parent, parent[k]);
+        return parent[k];
+    }
+    
+};
