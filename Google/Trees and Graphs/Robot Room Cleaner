@@ -45,7 +45,7 @@ public:
                 x-=dx[dir];
                 y-=dy[dir];
             }
-            robot.turnRight();
+            robot.turnLeft();
             dir=(dir+1)%4;
         }
     }
