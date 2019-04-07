@@ -1,0 +1,35 @@
+class Solution {
+public:
+     vector<char> strobo = {'0', '1', '6', '8', '9', '0', '1', '9', '8', '6'};
+public:
+    vector<string> findStrobogrammatic(int n) {
+        vector<string> results;
+        string result(n, ' ');
+        dfs(result, 0, results);
+        return results;
+    }
+    
+    void dfs(string& s, int pos, vector<string>& results) {
+        if(pos >= (s.length()/2)) {
+            if(s.length() % 2) {// length is odd case
+                s[pos] = '0';
+                results.push_back(s);
+                s[pos] = '1';
+                results.push_back(s);
+                s[pos] = '8';
+                results.push_back(s);
+            } else {//length is even
+                results.push_back(s);    
+            }
+            return;
+        }
+        
+        for(int i = 0; i < 5; i++) {
+            if(pos == 0 && i == 0) continue;// no all 0 case
+            s[pos] = strobo[i];
+            s[s.length() - pos - 1] = strobo[i + 5];
+            dfs(s, pos+1, results);
+        }
+        return;
+    }
+};
