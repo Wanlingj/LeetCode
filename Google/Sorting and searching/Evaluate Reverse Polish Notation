@@ -1,0 +1,23 @@
+ int evalRPN(vector<string>& tokens) {
+         stack<int> s;
+        
+        for(string t : tokens){
+            int r;
+            if(t == "+" || t == "-" || t == "/" || t == "*")
+            {
+                int e1 = s.top();
+                s.pop();
+                int e2 = s.top();
+                s.pop();
+                if (t == "+") r = e2 + e1;
+                if (t == "-") r = e2 - e1;
+                if (t == "/") r = e2 / e1;
+                if (t == "*") r = e2 * e1;
+            }
+            else r = stoi(t);
+            
+            s.push(r);
+        }
+        
+        return s.top();
+    }
