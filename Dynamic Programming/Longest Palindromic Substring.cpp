@@ -1,7 +1,7 @@
 class Solution {
 public:
-    string longestPalindrome(string s) {
-        int maxLength = 1;  // The result (length of LPS)
+    string longestPalindrome(string str) {
+    int maxLength = 1;  // The result (length of LPS)
     string maxpal;
         
    // int start = 0;
