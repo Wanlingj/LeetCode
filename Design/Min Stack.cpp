@@ -22,13 +22,13 @@ public:
     
     void push(int x) {
         ListNode* temp = new ListNode (x, cur_min);
-        temp->next = head;
+        temp->next = head;// new element(temp) --> head
         head = temp;
         cur_min = (cur_min == NULL || head->val < cur_min->val) ? head : cur_min;
     }
     
     void pop() {
-        ListNode* temp = head->next;
+        ListNode* temp = head->next;// this is the previous element inserted
         if (cur_min == head)
             cur_min = head->prev_min;
         delete head;
