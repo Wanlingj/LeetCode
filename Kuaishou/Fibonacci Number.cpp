@@ -14,3 +14,7 @@ public:
 };
 
 //time complexity: O(N)
+
+//Another question: Index of two largest numbers in an array
+//You can scan each element in the array and keep track of the largest and the second largest numbers and their index.
+//After all elements are scanned, you will be able to find the largest and the second largest numbers and their index.
